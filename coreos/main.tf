@@ -6,11 +6,11 @@
 #
 
 module "aws" {
-  source = "github.com/gambol99/terraform"
+  source = "../aws"
 }
 
 module "environment" {
-  source = "github.com/gambol99/terraform"
+  source = "../environment"
 }
 
 provider "aws" {

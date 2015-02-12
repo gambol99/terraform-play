@@ -14,6 +14,7 @@ module "aws" {
 resource "aws_security_group" "coreos" {
   name        = "coreos"
   description = "The default security group for coreos boxes"
+}
 
   ingress {
     from_port   = 0

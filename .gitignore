@@ -7,3 +7,9 @@
 
 *.swp
 *.secret
+aws/credentials
+aws/terraform.tfvars
+terraform.tfstate
+terraform.tfstate.backup
+.terraform
+

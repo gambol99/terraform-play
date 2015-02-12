@@ -5,20 +5,13 @@
 #  vim:ts=2:sw=2:et
 #
 
-variable "aws_region" {
-  description = "The default AWS region"
-  default     = "eu-west-1"
-}
-
-variable "aws_credential" {
-  description = "The AWS credentials"
-  aws_key     = ""
-  aws_secret  = ""
-}
+variable "aws_region" {}
+variable "aws_key"    {}
+variable "aws_secret" {}
 
 variable "aws_vpc_subnets" {
   default = {
-    "eu-west-1" = ""
+    "eu-west-1" = "vpc-afe333ca"
     "us-east-1" = ""
   }
 }

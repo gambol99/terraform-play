@@ -13,13 +13,10 @@ variable "coreos_amis" {
 }
 
 variable "coreos_cluster" {
-  ssh = {
-    "username" = "core"
-    "keyfile"  = "$HOME/.ssh/id_rsa.pub"
+  default = {
+    "ssh_keyfile"  = ""
+    "flavor"       = "m1.small"
+    "discovery"    = "c2f0005f6abd89f7e6380fdd525a1924"
+    "count"        = "3"
   }
-
-  ssh_keyfile  = ""
-  flavor       = "m1.small"
-  discovery    = "c2f0005f6abd89f7e6380fdd525a1924"
-  count        = 3
 }

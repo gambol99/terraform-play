@@ -5,6 +5,11 @@
 #  vim:ts=2:sw=2:et
 #
 
-variable "environment" = "prod"
-variable "domain"      = "domain.com"
+variable "environment" {
+  default = "prod"
+}
+
+variable "domain" {
+  default = "domain.com"
+}
 

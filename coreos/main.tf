@@ -6,7 +6,7 @@
 #
 
 module "aws" {
-  source     = ".."
+  source     = "../aws"
 
   aws_region = "eu-west-1"
 }
@@ -14,7 +14,6 @@ module "aws" {
 resource "aws_security_group" "coreos" {
   name        = "coreos"
   description = "The default security group for coreos boxes"
-}
 
   ingress {
     from_port   = 0
@@ -30,4 +29,3 @@ resource "aws_security_group" "coreos" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 }
-

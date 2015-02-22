@@ -56,6 +56,25 @@ ssh_authorized_keys:
   - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQD2TMUDqvIjPtfRsbUkqADC9Y47pWYAPGfaH5FkGijm5AtYIZI465/IHR517Ofbd+eeLrBp5VyAVUYcUyZOfLvINIYBcAMZDuzMZV3hQYiCj6whnPzq5ItAgd7KJUKYKWgAUvA0dfacM5STe7woH4Bg9L7kExs9q/1GonYynUBkOdmX6rP8SdG2kfcauvIS7YQkdUW+oymb8kge4zVd/WuqjId95wGHhkFzq/4CeqFFCd/dOjW/61yTp/E6Ms8Gd3NwNLD7l60AulMqRkxHJnMH3rAGSyhyvhLFqwpcc5/5wpaibsAW0oKwCEn/FC12WythVy+g4HAIwHKHCDRVPzqH jest@starfury
 
 write_files:
+  - path: /run/setup_environment.sh
+    permissions: '0755'
+    content: |
+      #!/usr/bin/bash
+      HOSTS_FILE=/etc/hosts
+      PRIVATE_IP=$(/bin/hostname -i)
+      NAME=$(/bin/hostname -f)
+
+      add_host() {
+        echo -e "$PRIVATE_IP \t$NAME" >> $HOSTS_FILE
+        if [ $? -ne 0 ]; then
+          echo "Failed to add the hostname to $HOSTS_FILE"
+          exit 1
+        fi
+        exit 0
+      }
+
+      [ -f $HOSTS_FILE ] || add_host
+      grep $PRIVATE_IP $HOSTS_FILE > /dev/null 2>/dev/null || add_host
   - path: /etc/ntp.conf
     content: |
       # Common pool
@@ -76,6 +95,18 @@ coreos:
   fleet:
     public-ip: $private_ipv4
   units:
+    - name: setup-environment.service
+      command: start
+      runtime: true
+      content: |
+        [Unit]
+        Description=Setup environment
+        Before=etcd.service
+
+        [Service]
+        Type=oneshot
+        RemainAfterExit=yes
+        ExecStart=/run/setup_environment.sh
     - name: format-ephemeral.service
       command: start
       content: |

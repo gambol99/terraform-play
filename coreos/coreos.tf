@@ -5,33 +5,6 @@
 #  vim:ts=2:sw=2:et
 #
 
-resource "aws_security_group" "coreos" {
-  name        = "coreos"
-  description = "The default security group for coreos boxes"
-  vpc_id      = "${lookup(var.vpc_id, var.aws_region)}"
-
-  ingress {
-    cidr_blocks = ["0.0.0.0/0"]
-    protocol    = "tcp"
-    from_port   = 22
-    to_port     = 22
-  }
-
-  ingress {
-    from_port   = 0
-    to_port     = 65535
-    protocol    = "tcp"
-    self        = true
-  }
-
-  ingress {
-    from_port   = 0
-    to_port     = 65535
-    protocol    = "udp"
-    self        = true
-  }
-}
-
 resource "aws_instance" "coreos" {
   instance_type   = "${var.coreos_flavor}"
   subnet_id       = "${lookup(var.vpc_subnet, var.aws_region)}"
@@ -40,7 +13,9 @@ resource "aws_instance" "coreos" {
   key_name        = "${aws_key_pair.coreos.key_name}"
   security_groups = ["${aws_security_group.coreos.id}"]
   tags {
-    Name = "coreos${count.index}"
+    Name    = "coreos${count.index}.${var.domain}"
+    Cluster = "${var.cluster}"
+    Env     = "${var.environment}"
   }
   associate_public_ip_address = "${var.coreos_public_ip}"
   user_data       =<<EOF

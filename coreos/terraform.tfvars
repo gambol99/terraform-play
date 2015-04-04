@@ -2,8 +2,6 @@
 
 # --- AWS ---
 
-aws_key       = ""
-aws_secret    = ""
 aws_region    = "eu-west-1"
 
 # --- COREOS ---
@@ -11,4 +9,4 @@ aws_region    = "eu-west-1"
 coreos_cluster_size    = "2"
 coreos_public_ip       = "true"
 coreos_flavor          = "m1.medium"
-coreos_discovery_token = "https://discovery.etcd.io/99da6ba0e2d0f55931f16fc8f005eecd"
+coreos_discovery_token = "https://discovery.etcd.io/e9c3d31c3791344de2b5b3e8de41da5a"

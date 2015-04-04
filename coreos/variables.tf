@@ -13,18 +13,21 @@ variable "aws_region" {
 
 variable "vpc_id" {
   default = {
-    "eu-west-1" = "vpc-afe333ca"
+    "eu-west-1" = "vpc-d93ee5bc"
   }
 }
 
 variable "vpc_subnet" {
   default = {
-    "eu-west-1" = "subnet-eafb31b3"
+    "eu-west-1" = "subnet-83da09da"
   }
 }
 
 # --- COREOS ----
 
+variable "cluster" {
+  default = "coreos"
+}
 variable "coreos_cluster_size"    {}
 variable "coreos_discovery_token" {}
 variable "coreos_flavor"          {}
@@ -32,7 +35,7 @@ variable "coreos_public_ip"       {}
 
 variable "coreos_amis" {
   default = {
-    "eu-west-1" = "ami-5d911f2a"
+    "eu-west-1" = "ami-57950a20"
     "us-east-1" = "ami-8297d4ea"
   }
 }
